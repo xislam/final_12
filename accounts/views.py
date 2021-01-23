@@ -1,6 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic import DetailView, UpdateView
 from django.views.generic.base import View
 
@@ -20,7 +21,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect('accounts:profile')
+            return redirect(reverse('accounts:profile', kwargs={'pk': user.profile.pk}))
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})

@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+      {% csrf_token %}
     <div>
-        {{  }}
+        <form action="{% url 'accounts:profile' user.profile.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Обновить</button>
+        </form>
     </div>
 {% endblock content %}

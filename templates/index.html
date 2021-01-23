@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
+
+
 {% block content %}
+    {% csrf_token %}
     {% for user in object_list %}
-        <div><a href="{% url 'accounts:detail' user.id %}">{{ user.username }}</a></div>
+        <div>
+              <p><b>Имя пользователя:</b> {{ user.username }}</p>
+                <p><b>Имя:</b> {{ user.first_name }}</p>
+                <p><b>Фамилия:</b> {{ user.last_name }}</p>
+            <a href="{% url 'accounts:detail' user.id %}">{{ user.username }}</a></div>
     {% endfor %}
 {% endblock content %}

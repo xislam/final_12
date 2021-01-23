@@ -1,0 +1,82 @@
+[
+{
+  "model": "chat.message",
+  "pk": 1,
+  "fields": {
+    "text": "dvcv",
+    "sender": 1,
+    "receiver": 2,
+    "created": "2021-01-23T13:49:16.048Z"
+  }
+},
+{
+  "model": "chat.message",
+  "pk": 2,
+  "fields": {
+    "text": "zvzv",
+    "sender": 1,
+    "receiver": 3,
+    "created": "2021-01-23T13:49:20.386Z"
+  }
+},
+{
+  "model": "chat.message",
+  "pk": 3,
+  "fields": {
+    "text": "hglivhcluf",
+    "sender": 1,
+    "receiver": 3,
+    "created": "2021-01-23T13:56:04.525Z"
+  }
+},
+{
+  "model": "chat.message",
+  "pk": 4,
+  "fields": {
+    "text": "hkcghk",
+    "sender": 1,
+    "receiver": 5,
+    "created": "2021-01-23T13:56:36.205Z"
+  }
+},
+{
+  "model": "chat.message",
+  "pk": 5,
+  "fields": {
+    "text": "reteartaert",
+    "sender": 1,
+    "receiver": 2,
+    "created": "2021-01-23T13:56:57.122Z"
+  }
+},
+{
+  "model": "chat.message",
+  "pk": 6,
+  "fields": {
+    "text": "fgdfgdf",
+    "sender": 1,
+    "receiver": 2,
+    "created": "2021-01-23T14:04:45.145Z"
+  }
+},
+{
+  "model": "chat.message",
+  "pk": 7,
+  "fields": {
+    "text": "zdczxc",
+    "sender": 1,
+    "receiver": 2,
+    "created": "2021-01-23T14:14:15.253Z"
+  }
+},
+{
+  "model": "chat.message",
+  "pk": 8,
+  "fields": {
+    "text": "ваыва",
+    "sender": 1,
+    "receiver": 2,
+    "created": "2021-01-23T14:16:57.268Z"
+  }
+}
+]

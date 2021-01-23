@@ -1,14 +1,80 @@
 {% extends 'base.html' %}
 
-
+{% load chat_extras %}
 
 {% block content %}
-    {% csrf_token %}
-    {% for user in object_list %}
+    {% for obj in object_list %}
         <div>
-              <p><b>Имя пользователя:</b> {{ user.username }}</p>
-                <p><b>Имя:</b> {{ user.first_name }}</p>
-                <p><b>Фамилия:</b> {{ user.last_name }}</p>
-            <a href="{% url 'accounts:detail' user.id %}">{{ user.username }}</a></div>
+        <div class="row">
+        <div class="col col-12 col-sm-10 col-md-8 col-lg-6 m-auto">
+            {% if obj.profile.avatar %}
+                <img src="{{ obj.profile.avatar.url }}" class="img-fluid">
+            {% endif %}
+            <div class="mt-3">
+                <p><b>Имя пользователя:</b> {{ obj.username }}</p>
+                <p><b>Имя:</b> {{ obj.first_name }}</p>
+                <p><b>Фамилия:</b> {{ obj.last_name }}</p>
+
+            </div>
+        </div>
+    </div>
+            <a href="{% url 'accounts:detail' obj.id %}">{{ obj.username }}</a>
+            {% if user.is_authenticated %}
+                {% if user|is_friend:obj.id %}
+                    <button type="button" class="remove" id="{{ obj.id }}" data-id="{{ obj.id }}">Удалить из друзей
+                    </button>
+                {% else %}
+                    <button type="button" class="add" id="{{ obj.id }}" data-id="{{ obj.id }}">Добавить в друзья
+                    </button>
+                {% endif %}
+                <button type="button" class="send-message" data-id="{{ obj.id }}">Отправить сообщение</button>
+            {% endif %}
+        </div>
     {% endfor %}
+
+    <div id="chat-form-wrap">
+        <div class="modal-content"></div>
+    </div>
 {% endblock content %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('.add').click(function () {
+                let id = $(this).data("id");
+                let btn = $(`#${id}`);
+                $.ajax({
+                    url: `http://localhost:8000/user/add/${id}/`,
+                    success: function (data) {
+                        btn.text("Удалить из друзей");
+                        btn.attr('class', 'remove');
+                    }
+                });
+            });
+
+            $('.remove').click(function () {
+                let id = $(this).data("id");
+                let btn = $(`#${id}`);
+                $.ajax({
+                    url: `http://localhost:8000/user/remove/${id}/`,
+                    success: function (data) {
+                        btn.text("Добавить в друзья");
+                        btn.attr('class', 'add');
+                    }
+                });
+            });
+
+            $('.send-message').click(function () {
+                let id = $(this).data("id");
+                let modal = $("#chat-form-wrap");
+                let xhr = $.ajax({
+                    url: `http://localhost:8000/chat-form/${id}/`,
+                    success: function (data) {
+                        modal.find('.modal-content').html(data);
+                    }
+                });
+            })
+        });
+    </script>
+{% endblock js %}
+

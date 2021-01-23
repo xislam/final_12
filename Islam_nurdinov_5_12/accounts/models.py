@@ -8,7 +8,7 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='profile/avatars/%Y/%m/%d', null=True, blank=True)
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
-    friends = models.ManyToManyField("self", blank=True, related_name='friends')
+    friends = models.ManyToManyField("self", blank=True)
 
     def get_absolute_url(self):
         return reverse("accounts:profile", kwargs={

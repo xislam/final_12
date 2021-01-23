@@ -1,10 +1,10 @@
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView, UpdateView
+from django.views.generic.base import TemplateView
 
 from accounts.forms import UserRegistrationForm, ProfileForm
 from accounts.models import Profile
@@ -38,29 +38,3 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
     template_name = 'profile.html'
     form_class = ProfileForm
-
-
-def logout_view(request):
-    logout(request)
-    return redirect('index')
-
-
-def login_view(request):
-    context = {}
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        next_url = request.POST.get('next')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            if next_url:
-                return redirect(next_url)
-            return redirect('webapp:index')
-        else:
-            context['has_error'] = True
-            context['next'] = next_url
-            context['username'] = username
-    else:
-        context = {'next': request.GET.get('next')}
-    return render(request, 'registration/login.html', context=context)

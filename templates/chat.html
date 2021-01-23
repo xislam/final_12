@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="inbox">
+        <h1>Входящие</h1>
+        <ul>
+            {% for message in s_messages %}
+                <li><span>{{ message.text }}</span> | {{ message.receiver }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="outbox">
+        <h1>Исходящие</h1>
+        <ul>
+            {% for message in r_messages %}
+                <li>{{ message.text }} | {{ message.sender }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}

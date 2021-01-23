@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+    {{ object.username }}
+
+    {% if user.is_authenticated %}
+        <button type="button" class="send-message" data-id="{{ object.id }}">Отправить сообщение</button>
+    {% endif %}
+    <div id="chat-form-wrap">
+        <div class="modal-content"></div>
+    </div>
+{% endblock content %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('.send-message').click(function () {
+                let id = $(this).data("id");
+                let modal = $("#chat-form-wrap");
+                let xhr = $.ajax({
+                    url: `http://localhost:8000/chat-form/${id}/`,
+                    success: function (data) {
+                        modal.find('.modal-content').html(data);
+                    }
+                });
+            })
+        });
+    </script>
+
+{% endblock js %}

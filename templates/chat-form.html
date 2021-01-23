@@ -1,0 +1,6 @@
+
+<form action="{% url 'chat:send' user.id %}" method="POST">
+    {% csrf_token %}
+    {{ form.text }}
+    <button type="submit">Отправить сообщение</button>
+</form>
